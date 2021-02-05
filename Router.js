@@ -71,8 +71,10 @@ router.post('/newpost', upload.single('images'), async(req, res, next) => {
       
           })
           post.save((err, result)=>{
-            if(err)
-            throw new err
+            if(err){
+              res.status(400).json(err)
+            }
+           
             console.log(result)
             res.status(200).json(result)
           })
@@ -116,10 +118,29 @@ router.get('/products', async (req, res)=>{
 
 router.get('/products/:id', async (req, res)=>{
 
+ const {product_name,  description, category, price, sales_price} = req.body
+
   const {id} = req.params
 
-  let product = await Product.find({product_name: id}).sort('asc').exec()
-  res.send(product)
+  let product = await Product.find({product_name: id})
+
+  const updateProduct = {
+     product_name,
+     description,
+            description,
+             category,
+              price, 
+              sales_price
+  }
+  updateProduct.save((err, result)=>{
+            if(err){
+              res.status(400).json(err)
+            }
+           
+            console.log(result)
+            res.status(200).json(result)
+          })
+
 })
 /*
 mongodb+srv://derayo8:deray@08@cluster0.oqznz.mongodb.net/test

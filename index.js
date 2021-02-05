@@ -13,11 +13,10 @@ app.use(express.json())
 var corsOptions = {
   origin: "http://localhost:3000"
 };
-
 app.use(cors(corsOptions));
 
 app.use(express.static(path.join(__dirname, '/uploads')));
-//var url = "mongodb://localhost:27017/nrblog";
+
 
 mongoose.connect(process.env.MONGO_REMOTE, {useNewUrlParser: true, useUnifiedTopology: true}, (err)=>{
 
@@ -26,6 +25,19 @@ mongoose.connect(process.env.MONGO_REMOTE, {useNewUrlParser: true, useUnifiedTop
 })
 
 app.use('/api/v1', Router)
+
+
+// serve build if on production
+if(process.env.NODE_ENV === "production"){
+
+  //set static folder
+  app.use(express.static('store/build'))
+
+  //get anything, load index.html
+  app.get('*', (req, res)=>{
+    res.sendFile(path.resolve(__dirname, 'store', 'build', index.html))
+  })
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=>{
