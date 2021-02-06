@@ -11,7 +11,7 @@ dotenv.config()
 app.use(express.json())
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "https://dgtal-ecommerce.herokuapp.com/"
 };
 app.use(cors(corsOptions));
 
