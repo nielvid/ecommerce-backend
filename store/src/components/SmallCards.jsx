@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Box,Link, Image, Text} from "@chakra-ui/react"
+import { Box,Link, Image, Text, Heading, Flex} from "@chakra-ui/react"
 import Phone from '../img/phone.jpg'
 
 export default function SmallCards() {
@@ -18,10 +18,12 @@ export default function SmallCards() {
         <Link href="/" p _hover={{textDecoration:"none" }}>
             <Image src={Phone} style={{borderRadius:"19px 19px 19px 19px"}}></Image>
             <Box>Product name</Box>
-            <Box>N4000.00 <br />
-            <Text textDecoration = "line-through" opacity="0.5">{state}</Text>
-            </Box>
-            <Box bg="#f00" w="18%" color="#fff" position="absolute" top="10" right="10"><Text>-46%</Text></Box>
+            <Flex justifyContent="space-between" p="0 10px">
+            <Heading>N4000.00</Heading>
+                 <Text textDecoration = "line-through" opacity="0.5">N5500.00</Text>
+            </Flex>
+            
+            <Box bg="#f00" w="25%" color="#fff" position="absolute" top="0" right="3px"><Text>-46%</Text></Box>
         </Link>
             
         </Box>

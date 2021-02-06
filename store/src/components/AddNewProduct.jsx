@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Stack, Box, Input, Button, Heading, Flex} from "@chakra-ui/react"
+import { Stack, Box, Input, Button, Heading, Flex, Text} from "@chakra-ui/react"
 import ImageThumb from "./ImageThumb";
 import {Link} from 'react-router-dom'; 
 
@@ -16,6 +16,7 @@ export default function AddNewProduct() {
     const [cat, setCat] = useState("");
     const [price, setPrice] = useState("");
     const [salesp, setSalesp] = useState("");
+    const [discount, setDiscount] = useState("");
 
     console.log(p_name)
 
@@ -40,6 +41,9 @@ export default function AddNewProduct() {
    function handleChange6(event) {
     setSalesp(event.target.value)
   }
+   function handleChange7(event) {
+    setDiscount(event.target.value)
+  }
 const Upload = ()=>{
     
    
@@ -47,12 +51,14 @@ const Upload = ()=>{
     data.append("images", file);
     data.append("product_name", p_name);
     data.append("description", desc);
-    data.append(" category", cat);
+    data.append("category", cat);
     data.append("price", price);
     data.append("sales_price", salesp);
+    data.append("discount", discount);
     
+    //const local = "http://localhost:5000/api/v1/newpost"
     axios
-      .post("http://localhost:5000/api/v1/newpost", data)
+      .post("/api/v1/newpost", data)
       .then(res => {
         console.log(res);
         toast.success('File successfully uploaded')
@@ -70,23 +76,26 @@ return (
        <Link to="/"><Button>Home</Button></Link>
        </Flex> 
         <ToastContainer />
+        <Box>
         <Stack spacing={3}>
-  <Input placeholder="Product Name" size="md" value={p_name}  onChange={handleChange2}/>
-  <Input placeholder="Description" size="md"  value={desc} onChange={handleChange3}/>
-  <Input placeholder="Category" size="md"  value={cat} onChange={handleChange4}/>
-  <Input placeholder="Price" size="md"  value={price} onChange={handleChange5}/>
-  <Input placeholder="Sale Price" size="md"  value={salesp} onChange={handleChange6}/>
-  <Input type="file" onChange={handleChange}  size="sm"  />
+  <Input placeholder="Product Name" size="lg" fontSize="1.1em" value={p_name}  onChange={handleChange2}/>
+  <Input placeholder="Description" size="lg" fontSize="1.1em" value={desc} onChange={handleChange3}/>
+  <Input placeholder="Category" size="lg"fontSize="1.1em"  value={cat} onChange={handleChange4}/>
+  <Input placeholder="Price" size="lg" fontSize="1.1em" value={price} onChange={handleChange5}/>
+  <Input placeholder="Sale Price" size="lg" fontSize="1.1em" value={salesp} onChange={handleChange6}/>
+   <Input placeholder="Discount" size="lg" fontSize="1.1em" value={discount} onChange={handleChange7}/>
+  <Input type="file" onChange={handleChange} fontSize="1em" size="lg" mb="15px" />
 </Stack>
-<Button bg="#000000" color="#ffffff" p="20px" fontSize="1.2em" onClick={Upload}>upload</Button>
-        
+<Button bg="#000000" color="#ffffff" p="20px" m="15px" fontSize="1.2em" onClick={Upload}>upload</Button>
+        </Box>
     
-              <div>
-      <p>Filename: {file.name}</p>
-      <p>File type: {file.type}</p>
-      <p>File size: {file.size} bytes</p>
+              <Box mt="20px">
+              <Heading>Image Preview</Heading>
+      <Text>Filename: {file.name}</Text>
+      <Text>File type: {file.type}</Text>
+      <Text>File size: {file.size} bytes</Text>
       {file && <ImageThumb image={file} />}
-</div>
+</Box>
         </Box>
     );
 }

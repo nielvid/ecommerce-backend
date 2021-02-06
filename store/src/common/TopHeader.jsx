@@ -8,7 +8,7 @@ export default function TopHeader() {
   return (
     <Flex p='10px 10%' justifyContent="space-between" bg="#ededed">
     <Box ><Heading>DgtalMall</Heading></Box>
-     <Flex >
+     <Flex fontSize="0.8em" >
      <Link className="link" to="/" alt="home">Home</Link>
      <Link  className="link"  to="/" alt="home">About</Link> 
      <Link  className="link"  to="/" alt="home">Shop</Link> 

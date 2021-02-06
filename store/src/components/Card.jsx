@@ -1,16 +1,31 @@
-import React, {useState, useEffect} from 'react'
-import { Box,Link, Image, Text, Heading} from "@chakra-ui/react"
-import Shirt from '../img/shirt.jpg'
-
+import React, {useContext} from 'react'
+import { Flex, Box,Link, Image, Text, Heading, Button,  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,} from "@chakra-ui/react"
+  import { useDisclosure } from "@chakra-ui/react"
+import {ProductContext} from "../App"
 
 export default function Card() {
-    const [state, setState] = useState("")
 
-        useEffect(()=>{
-            setState('N5,500.00')
-        },[])
+    let data = useContext(ProductContext)
+
+    data = data.state.data
+    
+    
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const finalRef = React.useRef()
+
+
+
     return (
-        <Box  p="5px"  maxW="23%"
+        <>
+        {data ? data.map((item)=>{
+            return (
+                <Box  p="5px"  maxW="23%"
         m="5px" bg="#ffffff"
         position="relative" 
         borderRadius="19px" 
@@ -22,15 +37,43 @@ export default function Card() {
         }}
             
         >
-        <Link href="/"_hover={{textDecoration:"none" }}>
-            <Image src={Shirt} style={{borderRadius:"19px 19px 19px 19px"}}></Image>
-            <Heading>Product name</Heading>
-            <Box>N4000.00 <br />
-            <Text textDecoration = "line-through" opacity="0.5">{state}</Text>
+        
+        <Link to="/"_hover={{textDecoration:"none" }}>
+            <Image src={item.images} style={{borderRadius:"19px 19px 19px 19px"}}></Image>
+            <Heading>{item.product_name}</Heading>
+            <Flex justifyContent="space-between" alignItems="center">
+            <Box>
+               
+
+      <Button mt={4} onClick={onOpen}>
+        Product Description
+      </Button>
+      <Modal size='3xl'  finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{item.product_name}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody >
+          {item.description}
+          </ModalBody>
+
+        </ModalContent>
+      </Modal>
             </Box>
-            <Box bg="#f00" w="18%" color="#fff" position="absolute" top="10" right="10"><Text>-46%</Text></Box>
+            <Text mr="3px">category: {item.category} </Text>
+            </Flex>
+            <Flex justifyContent="space-between" p="0 10px">
+            <Heading>{item.sales_price} </Heading>
+                <Text textDecoration = "line-through" opacity="0.5">{item.price}</Text>
+            </Flex>
+            
+            <Box bg="#f00" w="18%" color="#fff" position="absolute" top="0" right="5"><Text>{item.discount}</Text></Box>
         </Link>
             
         </Box>
+            )
+        }): "data loading"}
+        
+        </>
     )
 }
