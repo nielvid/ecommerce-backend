@@ -17,7 +17,6 @@ app.use(cors(corsOptions));
 
 app.use(express.static(path.join(__dirname, '/uploads')));
 
-
 mongoose.connect(process.env.MONGO_REMOTE, {useNewUrlParser: true, useUnifiedTopology: true}, (err)=>{
 
     if (err) throw err;

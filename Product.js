@@ -18,10 +18,16 @@ category: {
 type: String
 },
 price: {
-type: String
+type: String,
+required: true
 },
 sales_price: {
-type: String
+type: String,
+required: true
+},
+discount:{
+    type: String,
+required: true
 }
 
 })

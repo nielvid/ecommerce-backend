@@ -47,7 +47,7 @@ var upload  = multer({ storage: storage, fileFilter:fileFilter, limits : {fileSi
 router.post('/newpost', upload.single('images'), async(req, res, next) => {
     
   //var img_url
-  const {product_name,  description, category, price, sales_price} = req.body
+  const {product_name,  description, category, price, sales_price, discount} = req.body
 
   
    try {
@@ -67,7 +67,8 @@ router.post('/newpost', upload.single('images'), async(req, res, next) => {
             images: image.secure_url,
              category,
               price, 
-              sales_price
+              sales_price,
+              discount
       
           })
           post.save((err, result)=>{
@@ -130,7 +131,8 @@ router.get('/products/:id', async (req, res)=>{
             description,
              category,
               price, 
-              sales_price
+              sales_price,
+              discount
   }
   updateProduct.save((err, result)=>{
             if(err){
