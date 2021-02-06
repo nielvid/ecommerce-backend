@@ -57,7 +57,7 @@ function App() {
 
 
   useEffect(()=>{
-    axios.get("http://localhost:5000/api/v1/products").then((res)=>{
+    axios.get("/api/v1/products").then((res)=>{
     
       dispatch({type:'success', payload: res.data})
     }).catch((err)=>{

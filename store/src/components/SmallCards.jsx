@@ -1,13 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { Box,Link, Image, Text, Heading, Flex} from "@chakra-ui/react"
 import Phone from '../img/phone.jpg'
 
 export default function SmallCards() {
-     const [state, setState] = useState("")
-
-     useEffect(()=>{
-            setState('N5,500.00')
-        },[])
+    
     return (
         <Box  p="10px"  maxW="15%" m="10px 5px" bg="#ffffff" position="relative" borderRadius="19px" boxShadow="2px 2px 5px #bebebe,
              -2px -2px 5px #ffffff" 
