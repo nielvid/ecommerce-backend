@@ -26,6 +26,11 @@ const Product = mongoose.Schema({
   discount: {
     type: String,
     required: true
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true
   }
 
 });
