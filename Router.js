@@ -15,35 +15,36 @@ cloudinary.config({
 router.post("/add-product", upload.single("image"), async (req, res, next) => {
   const { productName, description, category, price, salesPrice, discount } = req.body;
 
-  if (req.file) {
-    // const img = req.file.filename
-    const path = req.file.path;
+  try {
+    if (req.file) {
+      const path = req.file.path;
 
-    cloudinary.uploader.upload(path,
-      function (err, image) {
-        if (err) {
-          res.status().send(err);
-          return;
-        }
-        console.log("file uploaded to Cloudinary");
+      cloudinary.uploader.upload(path,
+        async function (err, image) {
+          if (err) {
+            res.status().send(err);
+            return;
+          }
+          console.log("file uploaded to Cloudinary");
 
-        // remove file from server
-        fs.unlinkSync(path);
-        console.log(image);
-      });
-  }
+          const post = new Product({
+            productName,
+            description,
+            category,
+            image: image.secure_url,
+            price,
+            salesPrice,
+            discount
+          });
+          const result = await post.save();
+          res.send(result);
+          console.log(result);
 
-  const post = new Product({
-    productName,
-    description,
-    category,
-    price,
-    salesPrice,
-    discount
-  });
-  const result = await post.save();
-  res.send(result);
-  console.log(result);
+          // remove file from server
+          fs.unlinkSync(path);
+        });
+    }
+  } catch (err) { res.status(400).json(err); }
 });
 
 module.exports = router;
