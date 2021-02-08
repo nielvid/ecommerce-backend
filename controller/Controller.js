@@ -1,9 +1,8 @@
-const express = require("express");
-const router = express.Router();
 const dotenv = require("dotenv");
-dotenv.config(); const fs = require("fs");
-const Product = require("./Product");
-const upload = require("./UploadFunction");
+dotenv.config();
+const fs = require("fs");
+const Product = require("../models/Product");
+
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
@@ -12,7 +11,7 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 
-router.post("/add-product", upload.single("image"), async (req, res, next) => {
+const AddProduct = async (req, res, next) => {
   const { productName, description, category, price, salesPrice, discount } = req.body;
 
   try {
@@ -45,6 +44,10 @@ router.post("/add-product", upload.single("image"), async (req, res, next) => {
         });
     }
   } catch (err) { res.status(400).json(err); }
-});
+};
 
-module.exports = router;
+const GetAllProducts = (req, res) => {
+  const all = "products";
+  res.send(all);
+};
+module.exports = { AddProduct, GetAllProducts };

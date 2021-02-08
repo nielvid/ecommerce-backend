@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-const Router = require("./Router");
+const Router = require("./routes/Router");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
