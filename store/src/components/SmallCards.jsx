@@ -14,8 +14,8 @@ export default function SmallCards() {
         <Link href="/" p _hover={{textDecoration:"none" }}>
             <Image src={Phone} style={{borderRadius:"19px 19px 19px 19px"}}></Image>
             <Box>Product name</Box>
-            <Flex justifyContent="space-between" p="0 10px">
-            <Heading>N4000.00</Heading>
+            <Flex justifyContent="space-evenly" p="0 2px">
+            <Heading fontSize='1.1em'>N4000.00</Heading>
                  <Text textDecoration = "line-through" opacity="0.5">N5500.00</Text>
             </Flex>
             

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import { Flex, Box,Link, Image, Text, Heading, Button,  Modal,
   ModalOverlay,
   ModalContent,
@@ -6,15 +6,16 @@ import { Flex, Box,Link, Image, Text, Heading, Button,  Modal,
   ModalBody,
   ModalCloseButton,} from "@chakra-ui/react"
   import { useDisclosure } from "@chakra-ui/react"
-import {ProductContext} from "../App"
+//import {ProductContext} from "../App"
 
 export default function Card() {
 
-    let data = useContext(ProductContext)
+   /* let data = useContext(ProductContext)
 
     data = data.state.data
     
-    
+    */
+   let data = [];
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const finalRef = React.useRef()

@@ -89,18 +89,7 @@ function App() {
         <SmallCards />
       </OtherCardsHolder>
       <FeaturedCategory>
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
-        <FeaturedProducts />
+        {Array(12).fill(null).map(() => (<FeaturedProducts />))}
       </FeaturedCategory>
       <AdvertBoard>
         <Advert />
