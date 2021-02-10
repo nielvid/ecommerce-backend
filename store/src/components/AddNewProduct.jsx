@@ -18,7 +18,7 @@ export default function AddNewProduct() {
     const [salesPrice, setSalesPrice] = useState("");
     const [discount, setDiscount] = useState("");
 
-    console.log(productName)
+
 
     function handleChange(event) {
     setFile(event.target.files[0]);
@@ -33,7 +33,11 @@ export default function AddNewProduct() {
     setDescription(event.target.value)
   }
  function handleChange4(event) {
-    setCategory(event.target.value)
+  
+   let data = event.target.value
+   data = data.split(",");
+ console.log(data)
+    setCategory(data)
   }
    function handleChange5(event) {
     setPrice(event.target.value)
@@ -64,7 +68,7 @@ const Upload = ()=>{
         toast.success('File successfully uploaded')
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.message);
         toast.error('File not uploaded')
       });
     }
