@@ -58,13 +58,14 @@ function App() {
 
   useEffect(()=>{
     axios.get("/api/v1/products").then((res)=>{
+      
+      //console.log(res.data.docs)
     
-      dispatch({type:'success', payload: res.data})
+      dispatch({type:'success', payload: res.data.docs})
     }).catch((err)=>{
       dispatch({type:"error"})
     })
   },[])
-
 
   return (
    <Router>
@@ -81,12 +82,8 @@ function App() {
        <Card />
       </CardsHolder>
       <OtherCardsHolder>
-        <SmallCards />
-        <SmallCards />
-        <SmallCards />
-        <SmallCards />
-        <SmallCards />
-        <SmallCards />
+       {Array(6).fill(null).map(() => (<SmallCards />))}
+        
       </OtherCardsHolder>
       <FeaturedCategory>
         {Array(12).fill(null).map(() => (<FeaturedProducts />))}

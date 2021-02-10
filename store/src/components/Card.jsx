@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Flex, Box,Link, Image, Text, Heading, Button,  Modal,
   ModalOverlay,
   ModalContent,
@@ -6,14 +6,14 @@ import { Flex, Box,Link, Image, Text, Heading, Button,  Modal,
   ModalBody,
   ModalCloseButton,} from "@chakra-ui/react"
   import { useDisclosure } from "@chakra-ui/react"
-//import {ProductContext} from "../App"
+import {ProductContext} from "../App"
 
 export default function Card() {
-
-   /* let data = useContext(ProductContext)
+/*
+   let data = useContext(ProductContext)
 
     data = data.state.data
-    
+    //console.log(data)
     */
    let data = [];
 
@@ -24,7 +24,7 @@ export default function Card() {
 
     return (
         <>
-        {data ? data.map((item)=>{
+        {data ? data.map((item, index)=>{
             return (
                 <Box  p="5px"  maxW="23%"
         m="5px" bg="#ffffff"
@@ -40,8 +40,8 @@ export default function Card() {
         >
         
         <Link to="/"_hover={{textDecoration:"none" }}>
-            <Image src={item.images} style={{borderRadius:"19px 19px 19px 19px"}}></Image>
-            <Heading>{item.product_name}</Heading>
+            <Image src={item.image} style={{borderRadius:"19px 19px 19px 19px"}} key="index"></Image>
+            <Heading key="index">{item.productName}</Heading>
             <Flex justifyContent="space-between" alignItems="center">
             <Box>
                
@@ -52,19 +52,19 @@ export default function Card() {
       <Modal size='3xl'  finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{item.product_name}</ModalHeader>
+          <ModalHeader key="index">{item.productName}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody >
+          <ModalBody key="index" >
           {item.description}
           </ModalBody>
 
         </ModalContent>
       </Modal>
             </Box>
-            <Text mr="3px">category: {item.category} </Text>
+            <Text mr="3px" key="index">category: {item.category} </Text>
             </Flex>
             <Flex justifyContent="space-between" p="0 10px">
-            <Heading>{item.sales_price} </Heading>
+            <Heading key="index">{item.salesPrice} </Heading>
                 <Text textDecoration = "line-through" opacity="0.5">{item.price}</Text>
             </Flex>
             
