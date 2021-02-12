@@ -7,11 +7,13 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
-// const session = require("express-session");
-// const MongoDBStore = require("connect-mongodb-session")(session);
+const session = require("express-session");
+const MongoDBStore = require("connect-mongodb-session")(session);
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 app.use(express.json());
+app.use(cookieParser());
 
 const corsOptions = {
   origin: "https://localhost:3000"
@@ -20,7 +22,7 @@ app.use(cors(corsOptions));
 app.use(helmet());
 
 app.use(express.static(path.join(__dirname, "/uploads")));
-/*
+
 const store = new MongoDBStore({
   uri: process.env.MONGO_LOCAL,
   collection: "products"
@@ -37,7 +39,7 @@ app.use(session({
     // Returns a random string to be used as a session ID
   }
 }));
-*/
+
 mongoose.connect(process.env.MONGO_LOCAL, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
   if (err) throw err;
   console.log("Connected to database");
