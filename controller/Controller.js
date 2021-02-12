@@ -157,7 +157,12 @@ const Login = async (req, res) => {
     user.token = token;
     user.save();
 
-    res.cookie("ecommerce", token, { maxAge: 900000, httpOnly: true }).send({
+    res.cookie("ecommerce", token, {
+      maxAge: 60 * 60 * 1000, // 1 hour
+      httpOnly: false,
+      secure: true,
+      sameSite: false
+    }).send({
       error: null,
       userId: user._id,
       username: user.email,
@@ -178,16 +183,10 @@ const Dashboard = async (req, res) => {
   }
 };
 const Logout = async (req, res) => {
-  if (req.cookie) {
-    console.log(req.cookie);
-    res.cookie("ecommerce", "none", {
-      expires: new Date(Date.now() + 5 * 1000),
-      httpOnly: true
-    }).send("user logged out");
-    // res.clearCookie("ecommerce").send("user logged out");
-  } else {
-    res.status().send("User not logged in");
-  }
+  const data = req.headers.cookie;
+  console.log(data);
+  res.clearCookie("ecommerce").send("user logged out");
+  // res.clearCookie("ecommerce").send("user logged out");
 };
 /* DELETE AN IMAGE FROM SERVER
 cloudinary.uploader.destroy('zombie', function(result) { console.log(result) });
