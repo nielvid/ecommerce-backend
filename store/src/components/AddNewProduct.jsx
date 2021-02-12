@@ -50,7 +50,10 @@ export default function AddNewProduct() {
   }
 
    const Logout = ()=>{
-    axios.get("/api/v1/logout").then((res)=>{
+    axios.get("/api/v1/logout",{ withCredentials: true }, {Header:
+      {
+         Cookie: "ecommerce"
+     }} ).then((res)=>{
       console.log(res)
     }).catch(err => console.log(err))
 

@@ -7,22 +7,12 @@ import {
   Route,
 } from 'react-router-dom';
 import './App.css';
-import Banner from "./common/Banner";
-import Header from "./common/Header";
-import TopHeader from "./common/TopHeader";
+
 import AddNewProduct from "./components/AddNewProduct";
-import Advert from "./components/Advert";
-import Card from "./components/Card";
-import FeaturedProducts from "./components/FeaturedProducts";
-import PageWarapper from "./components/PageWarapper";
-import SmallCards from "./components/SmallCards";
-import AdvertBoard from "./layouts/AdvertBoard";
-import CardsHolder from "./layouts/CardsHolder";
-import FeaturedCategory from "./layouts/FeaturedCategory";
-import Footer from "./layouts/Footer";
-import OtherCardsHolder from "./layouts/OtherCardsHolder";
+import PageWarapper from "./layouts/PageWarapper";
 import axios from 'axios';
 import Login from './components/Login';
+import Content from './layouts/Content';
 
 export const ProductContext = React.createContext()
 
@@ -73,26 +63,10 @@ function App() {
    <ChakraProvider >
    <ProductContext.Provider value={{state}}>
    <PageWarapper>
+  
    <Switch>
    <Route exact path="/">
-    
-    <TopHeader />
-       <Header />
-       <Banner />
-       <CardsHolder>
-       <Card />
-      </CardsHolder>
-      <OtherCardsHolder>
-       {Array(6).fill(null).map(() => (<SmallCards />))}
-        
-      </OtherCardsHolder>
-      <FeaturedCategory>
-        {Array(12).fill(null).map(() => (<FeaturedProducts />))}
-      </FeaturedCategory>
-      <AdvertBoard>
-        <Advert />
-      </AdvertBoard>
-      <Footer />
+    <Content />
       </Route>
       <Route exact path="/add-product">
         <AddNewProduct />
@@ -101,6 +75,7 @@ function App() {
         <Login />
       </Route>
    </Switch>
+    
    </PageWarapper>
    </ProductContext.Provider>
     </ChakraProvider>

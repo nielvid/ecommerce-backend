@@ -9,6 +9,6 @@ router.get("/:slug", Controller.SingleProduct);
 router.post("/add-product", authenticate, upload.single("image"), Controller.AddProduct);
 router.post("/login", Controller.Login);
 router.post("/register", Controller.Register);
-router.get("/logout", authenticate, Controller.Logout);
+router.get("/logout", Controller.Logout);
 
 module.exports = router;
