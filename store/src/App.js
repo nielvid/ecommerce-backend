@@ -22,6 +22,7 @@ import FeaturedCategory from "./layouts/FeaturedCategory";
 import Footer from "./layouts/Footer";
 import OtherCardsHolder from "./layouts/OtherCardsHolder";
 import axios from 'axios';
+import Login from './components/Login';
 
 export const ProductContext = React.createContext()
 
@@ -95,6 +96,9 @@ function App() {
       </Route>
       <Route exact path="/add-product">
         <AddNewProduct />
+      </Route>
+      <Route exact path="/login">
+        <Login />
       </Route>
    </Switch>
    </PageWarapper>

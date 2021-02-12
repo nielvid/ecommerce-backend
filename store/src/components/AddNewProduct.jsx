@@ -48,6 +48,13 @@ export default function AddNewProduct() {
    function handleChange7(event) {
     setDiscount(event.target.value)
   }
+
+   const Logout = ()=>{
+    axios.get("/api/v1/logout").then((res)=>{
+      console.log(res)
+    }).catch(err => console.log(err))
+
+  }
 const Upload = ()=>{
     
    
@@ -78,6 +85,7 @@ return (
        <Flex justifyContent="space-between" marginBottom="15px">
        <Heading> Add New Product</Heading> 
        <Link to="/"><Button>Home</Button></Link>
+       <Button onClick={Logout}>Logout</Button>
        </Flex> 
         <ToastContainer />
         <Box>

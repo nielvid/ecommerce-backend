@@ -123,14 +123,13 @@ const Register = async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
       confirmPassword: hashedPassword,
-      teleplone: req.body.teleplone
+      telephone: req.body.telephone
     });
 
-    const result = await newCustomer.save((err, doc) => {
+    newCustomer.save((err, doc) => {
       if (err) return res.status(400).send(err);
-      return doc;
+      res.status(200).send(doc);
     });
-    res.status(200).send(result);
   } catch (err) {
     console.log(err);
   }
@@ -149,15 +148,16 @@ const Login = async (req, res) => {
     // check for password correctness
     const checkPassword = await bcrypt.compare(req.body.password, user.password);
     if (!checkPassword) { return res.status(400).json({ error: "Password is wrong" }); }
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "10m" });
     if (user !== null) {
       req.session.user = {
         email: user.email
       };
     }
+    user.token = token;
+    user.save();
 
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "10m" });
-
-    res.send({
+    res.cookie("ecommerce", token, { maxAge: 900000, httpOnly: true }).send({
       error: null,
       userId: user._id,
       username: user.email,
@@ -178,11 +178,15 @@ const Dashboard = async (req, res) => {
   }
 };
 const Logout = async (req, res) => {
-  if (req.session.user) {
-    delete req.session.user;
-    res.redirect("/login");
+  if (req.cookie) {
+    console.log(req.cookie);
+    res.cookie("ecommerce", "none", {
+      expires: new Date(Date.now() + 5 * 1000),
+      httpOnly: true
+    }).send("user logged out");
+    // res.clearCookie("ecommerce").send("user logged out");
   } else {
-    res.redirect("/");
+    res.status().send("User not logged in");
   }
 };
 /* DELETE AN IMAGE FROM SERVER
