@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("cloudinary").v2;
 const Customer = require("../models/Customer");
+const { ErrorHandler } = require("../utils/errorHandlers");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -135,7 +136,7 @@ const Register = async (req, res) => {
   }
 };
 
-const Login = async (req, res) => {
+const Login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
   // validate the user
@@ -172,6 +173,7 @@ const Login = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    next(new ErrorHandler(400, "Something went wrong"));
   }
 };
 
