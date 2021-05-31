@@ -6,15 +6,17 @@ import { Flex, Box,Link, Image, Text, Heading, Button,  Modal,
   ModalBody,
   ModalCloseButton,} from "@chakra-ui/react"
   import { useDisclosure } from "@chakra-ui/react"
-import {ProductContext} from "../App"
+import {Products} from "../state/contexts/context"
 
 export default function Card() {
-/*
-   let data = useContext(ProductContext)
+let name = useContext(Products)
+console.log(name)
 
-    data = data.state.data
+   //let data = useContext(ProductContext)
+
+    //data = data.state.data
     //console.log(data)
-    */
+    
    let data = [];
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -26,7 +28,7 @@ export default function Card() {
         <>
         {data ? data.map((item, index)=>{
             return (
-                <Box  p="5px"  maxW="23%"
+                <Box  p="1rem"  maxW="23%"
         m="5px" bg="#ffffff"
         position="relative" 
         borderRadius="19px" 
@@ -39,7 +41,7 @@ export default function Card() {
             
         >
         
-        <Link to="/"_hover={{textDecoration:"none" }}>
+        <Link to="/" _hover={{textDecoration:"none" }}>
             <Image src={item.image} style={{borderRadius:"19px 19px 19px 19px"}} key="index"></Image>
             <Heading key="index">{item.productName}</Heading>
             <Flex justifyContent="space-between" alignItems="center">
@@ -61,9 +63,9 @@ export default function Card() {
         </ModalContent>
       </Modal>
             </Box>
-            <Text mr="3px" key="index">category: {item.category} </Text>
+            <Text mr="0.3rem" key="index">category: {item.category} </Text>
             </Flex>
-            <Flex justifyContent="space-between" p="0 10px">
+            <Flex justifyContent="space-between" p="0 1rem">
             <Heading key="index">{item.salesPrice} </Heading>
                 <Text textDecoration = "line-through" opacity="0.5">{item.price}</Text>
             </Flex>

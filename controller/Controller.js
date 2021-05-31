@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("cloudinary").v2;
 const Customer = require("../models/Customer");
+const { ErrorHandler } = require("../utils/errorHandlers");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -123,20 +124,19 @@ const Register = async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
       confirmPassword: hashedPassword,
-      teleplone: req.body.teleplone
+      telephone: req.body.telephone
     });
 
-    const result = await newCustomer.save((err, doc) => {
+    newCustomer.save((err, doc) => {
       if (err) return res.status(400).send(err);
-      return doc;
+      res.status(200).send(doc);
     });
-    res.status(200).send(result);
   } catch (err) {
     console.log(err);
   }
 };
 
-const Login = async (req, res) => {
+const Login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
   // validate the user
@@ -149,15 +149,21 @@ const Login = async (req, res) => {
     // check for password correctness
     const checkPassword = await bcrypt.compare(req.body.password, user.password);
     if (!checkPassword) { return res.status(400).json({ error: "Password is wrong" }); }
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "10m" });
     if (user !== null) {
       req.session.user = {
         email: user.email
       };
     }
+    user.token = token;
+    user.save();
 
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "10m" });
-
-    res.send({
+    res.cookie("ecommerce", token, {
+      maxAge: 60 * 60 * 1000, // 1 hour
+      httpOnly: false,
+      secure: true,
+      sameSite: false
+    }).send({
       error: null,
       userId: user._id,
       username: user.email,
@@ -167,6 +173,7 @@ const Login = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+    next(new ErrorHandler(400, "Something went wrong"));
   }
 };
 
@@ -178,12 +185,10 @@ const Dashboard = async (req, res) => {
   }
 };
 const Logout = async (req, res) => {
-  if (req.session.user) {
-    delete req.session.user;
-    res.redirect("/login");
-  } else {
-    res.redirect("/");
-  }
+  const data = req.headers.cookie;
+  console.log(data);
+  res.clearCookie("ecommerce").send("user logged out");
+  // res.clearCookie("ecommerce").send("user logged out");
 };
 /* DELETE AN IMAGE FROM SERVER
 cloudinary.uploader.destroy('zombie', function(result) { console.log(result) });

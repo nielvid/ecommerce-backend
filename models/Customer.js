@@ -18,8 +18,8 @@ const Users = new Schema({
   password: {
     type: String,
     required: true,
-    min: 6,
-    max: 1024
+    min: 11,
+    max: 11
   },
   confirmPassword: {
     type: String,
@@ -33,6 +33,7 @@ const Users = new Schema({
     min: 6,
     max: 1024
   },
+  token: String,
   date: {
     type: Date,
     default: Date.now
