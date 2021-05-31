@@ -12,22 +12,22 @@ export default function Footer() {
 
     return (
         <Box bg="#323232" w="100%">
-        <Box  p='35px 10%' bg="#282828" w="100%" color="#ffffff">
-        <Flex justifyContent="space-between">
-        <Box><Image src="https://res.cloudinary.com/netsignreg/image/upload/v1612347532/logo_b10yg3.png" alt="logo" w="100px"/></Box>
-        <Box>
-            <Text textTransform="uppercase">New to DgtallMall</Text>
-            <Text fontSize="0.8em">Subscribe to our newsletter to get updates on our latest offers!</Text>
+        <Box  p='35px 10%' bg="#282828" w="100%"  color="#ffffff">
+        <Flex justifyContent={["center", "space-between"]} flexWrap="wrap" >
+        <Box my="0.8em" ><Image src="https://res.cloudinary.com/netsignreg/image/upload/v1612347532/logo_b10yg3.png" alt="logo" w="50%"/></Box>
+        <Box my="0.8em" textAlign="center">
+            <Text textTransform="uppercase" fontSize={["0.6em", "0.8em"]} fontWeight="600">New to DgtallMall</Text>
+            <Text fontSize={["0.6em", "0.8em"]}>Subscribe to get updates on our latest offers!</Text>
             <Flex>
-            <Input type="text" name="subscrie" placeholder="Enter your email address" bg="#ffffff" fontSize="1.1em"/>
-            <Button bg="transparent" border="1px solid #ffffff" color="#ffffff" fontSize="1.1em">subscribe</Button>
+            <Input type="text" name="subscrie" placeholder="Email address" bg="#ffffff" fontSize="1.1em" outline="none"/>
+            <Button bg="#000" border="none" color="#ffffff" fontSize="1.3rem" py="1.2rem" outline="none">Subscribe</Button>
             </Flex>
         </Box>
-        <Box><Text>DOWNLOAD DGTALLMALL FREE APP</Text>
-        <Text>Get access to exclusive offers!</Text>
-        <Flex justifyContent="flex-start">
-             <img src={Apps} alt="App store" width="150px" display="inline" />
-        <img src={Apps2} alt="App store" width="150px" style={{marginLeft: "10px"}}/>
+        <Box my="0.8em" textAlign="center"><Text fontSize={["0.6em", "0.8em"]} fontWeight="600">DOWNLOAD DGTALLMALL FREE APP</Text>
+        <Text fontSize={["0.6em", "0.8em"]}>Get access to exclusive offers!</Text>
+        <Flex justifyContent="center" flexWrap="wrap">
+             <img src={Apps} alt="App store" width={["30%","20%", "10%"]} display="inline" />
+        <img src={Apps2} alt="App store" width={["30%","20%", "10%"]} style={{marginLeft: "10px"}}/>
         </Flex>
        
         </Box>
@@ -35,10 +35,10 @@ export default function Footer() {
             
             </Flex>
         </Box>
-        <Box p='35px 10%'>
-            <Flex justifyContent="space-between" color="#ffffff">
+        <Box p='35px 10%' >
+            <Flex justifyContent="space-between" flexWrap="wrap" color="#ffffff">
                 <Box>
-                <Text textTransform="uppercase">Let's Help You</Text>
+                <Text textTransform="uppercase" fontWeight="600">Let's Help You</Text>
                 <UnorderedList fontSize="0.7em" pt="20px" ml="0">
                 <List spacing={3}>
                    <ListItem><Link href="/">Help Center</Link></ListItem> 
@@ -52,7 +52,7 @@ export default function Footer() {
                 </Box>
 
                  <Box>
-                 <Text textTransform="uppercase">About DgtallMall</Text>
+                 <Text textTransform="uppercase" fontWeight="600">About DgtallMall</Text>
                  <UnorderedList fontSize="0.7em" pt="20px" ml="0">
                 <List spacing={3}>
                    <ListItem><Link href="/">About us</Link></ListItem> 
@@ -66,7 +66,7 @@ export default function Footer() {
                      </List>
                 </UnorderedList></Box>
                   <Box>
-                  <Text textTransform="uppercase">Affiliates</Text>
+                  <Text textTransform="uppercase" fontWeight="600">Affiliates</Text>
                   <UnorderedList fontSize="0.7em" pt="20px" ml="0">
                 <List spacing={3}>
                    <ListItem><Link href="/">Sell on DgtallMall</Link></ListItem> 
@@ -76,7 +76,7 @@ export default function Footer() {
                      </List>
                 </UnorderedList>
                   </Box>
-                   <Box><Text textTransform="uppercase">Our International Partners</Text>
+                   <Box><Text textTransform="uppercase" fontWeight="600">Our International Partners</Text>
                    <Flex justifyContent="space-between">
                        <UnorderedList fontSize="0.7em" pt="10px" ml="0">
                 <List spacing={3}>
@@ -116,7 +116,7 @@ export default function Footer() {
                    </Box>
             </Flex>
         </Box>
-            <Box  p='35px 10%' bg="#282828" w="100%" color="#ffffff" textAlign="center">
+            <Box  p='0.8rem 10%'  fontSize={["0.6em", "0.8em"]} bg="#282828" w="100%" color="#ffffff" textAlign="center">
                 <Text>&copy; 2021 | <Link href="/" >Nielvid Technologies</Link></Text>
             </Box>
         </Box>

@@ -1,16 +1,16 @@
 import React,{ useState} from 'react'
 import '../App.css';
 import { Stack, Box, Input, Button, Text } from "@chakra-ui/react"
-import {Link, useHistory} from "react-router-dom";
+import {Link } from "react-router-dom";
 import axios from 'axios'
 
 
 function Login() {
- const history = useHistory() // hooks for redirection
+//  const history = useHistory() // hooks for redirection
     
-if(localStorage.getItem('token')){
-  history.push('/home'); //redirect to login page
-}
+// if(localStorage.getItem('token')){
+//   history.push('/home'); //redirect to login page
+// }
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -26,7 +26,7 @@ const LoginUser = (e)=>{
     axios.post('api/v1/login', user).then((res) => {
         console.log(res)
       
-        history.push('/add-product'); //redirect to login page
+       // history.push('/add-product'); //redirect to login page
         
 }).catch((err) =>{
         //console.log(err)
