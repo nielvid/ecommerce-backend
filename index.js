@@ -16,10 +16,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: "https://localhost:3000"
-};
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(helmet());
 
 app.use(express.static(path.join(__dirname, "/uploads")));
